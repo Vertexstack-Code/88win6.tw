@@ -1,3 +1,4 @@
+import { BANNERS } from "@/lib/media";
 import type { InfoPage } from "@/lib/types";
 
 // Information (pillar) pages. Facts here must match the live platform —
@@ -79,6 +80,7 @@ export const PAGES: InfoPage[] = [
   },
   {
     path: "/login",
+    media: [BANNERS.welcome],
     navLabel: "登入教學",
     icon: "user",
     eyebrow: "88WIN登入",
@@ -228,6 +230,7 @@ export const PAGES: InfoPage[] = [
   },
   {
     path: "/review",
+    media: [BANNERS.firstDeposit, BANNERS.rebate, BANNERS.welcome, BANNERS.vip],
     navLabel: "88WIN評價",
     icon: "star",
     eyebrow: "88WIN評價・88WIN好嗎",
@@ -328,6 +331,7 @@ export const PAGES: InfoPage[] = [
   },
   {
     path: "/withdrawal",
+    media: [BANNERS.scheduledWithdrawal, BANNERS.expayGuide],
     navLabel: "出金說明",
     icon: "wallet",
     eyebrow: "88WIN出金",

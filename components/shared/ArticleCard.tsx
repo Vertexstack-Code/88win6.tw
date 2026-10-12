@@ -1,12 +1,38 @@
+import Image from "next/image";
 import Link from "next/link";
 import { formatDate } from "@/lib/content";
 import type { Article } from "@/lib/types";
 
-/** Inline-SVG cover: zero image bytes, no layout shift. */
-export function ArticleCover({ article, className = "" }: { article: Article; className?: string }) {
+/**
+ * Article cover: the official artwork when the article has one, otherwise an
+ * inline-SVG gradient. `priority` is for the above-the-fold cover on the
+ * article page itself.
+ */
+export function ArticleCover({
+  article,
+  className = "",
+  priority = false,
+  sizes = "(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw",
+}: {
+  article: Article;
+  className?: string;
+  priority?: boolean;
+  sizes?: string;
+}) {
+  if (article.image) {
+    return (
+      <div className={`relative aspect-[3/2] w-full overflow-hidden bg-brand-50 ${className}`}>
+        <Image src={article.image} alt="" fill priority={priority} sizes={sizes} className="object-cover" />
+        <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink-800 shadow-sm">
+          {article.category}
+        </span>
+      </div>
+    );
+  }
+
   const id = `cover-${article.slug}`;
   return (
-    <div className={`relative aspect-[16/9] w-full overflow-hidden ${className}`}>
+    <div className={`relative aspect-[3/2] w-full overflow-hidden ${className}`}>
       <svg viewBox="0 0 640 360" className="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <defs>
           <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">

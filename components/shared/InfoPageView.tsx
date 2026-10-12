@@ -10,6 +10,7 @@ import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Container } from "@/components/shared/Container";
 import { ContentBody } from "@/components/shared/ContentBody";
 import { Icon } from "@/components/shared/Icon";
+import { LineQrCard, MediaBanners } from "@/components/shared/Media";
 
 /**
  * Layout shared by every information page: a page header with the H1 and
@@ -39,6 +40,7 @@ export function InfoPageView({ page, lead }: { page: InfoPage; lead?: ReactNode 
 
       <Container className="grid gap-10 py-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:py-14">
         <div className="flex min-w-0 flex-col gap-8">
+          {page.media && <MediaBanners items={page.media} caption="圖片為 88WIN 官方活動素材，實際條件以平台公告為準。" />}
           {lead}
           <ContentBody blocks={page.content} faq={page.faq} faqHeading={page.faqHeading} />
         </div>
@@ -61,6 +63,7 @@ export function InfoPageView({ page, lead }: { page: InfoPage; lead?: ReactNode 
               完整官方管道 →
             </Link>
           </div>
+          <LineQrCard />
           <div className="card flex flex-col gap-3 p-5">
             <p className="text-sm font-bold text-ink-900">需要協助？</p>
             <a

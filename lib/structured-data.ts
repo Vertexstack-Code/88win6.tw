@@ -64,6 +64,7 @@ export function articleSchema(article: Article) {
     inLanguage: SITE.locale,
     // CJK has no spaces, so count characters rather than words.
     wordCount: Array.from(plain.replace(/\s/g, "")).length,
+    ...(article.image && { image: `${SITE.url}${article.image}` }),
     datePublished: article.publishDate,
     dateModified: article.updatedDate ?? article.publishDate,
     author: { "@type": "Organization", name: SITE.editor.name, url: SITE.url },

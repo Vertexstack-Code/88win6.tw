@@ -75,7 +75,7 @@ export default async function ArticlePage({ params }: PageProps) {
             </p>
           </header>
 
-          <ArticleCover article={article} className="rounded-2xl" />
+          <ArticleCover article={article} className="rounded-2xl" priority sizes="(min-width: 800px) 760px, 100vw" />
 
           <ContentBody blocks={article.content} faq={article.faq} />
 

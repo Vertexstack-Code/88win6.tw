@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getAllArticles } from "@/lib/content";
+import { BANNERS } from "@/lib/media";
 import { buildMetadata } from "@/lib/seo";
 import { LINKS, SITE } from "@/lib/site";
 import { faqSchema } from "@/lib/structured-data";
@@ -36,6 +38,8 @@ const TOPICS: { path: string; icon: IconName; title: string; text: string }[] = 
   { path: "/app", icon: "download", title: "88WIN APP", text: "iOS／Android 加到主畫面，不必安裝 APK" },
   { path: "/support", icon: "headset", title: "官方客服", text: "官方 LINE 與辨識冒充客服的方法" },
 ];
+
+const PROMOS = [BANNERS.welcome, BANNERS.firstDeposit, BANNERS.rebate, BANNERS.vip];
 
 const HOME_FAQ: FAQItem[] = [
   {
@@ -147,6 +151,34 @@ export default function HomePage() {
       </section>
 
       <section className="border-y border-ink-200 bg-white py-12 sm:py-16">
+        <Container className="flex flex-col gap-6">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div className="flex flex-col gap-2">
+              <h2 className="text-2xl sm:text-3xl">88WIN 官方最新優惠</h2>
+              <p className="text-sm text-ink-600">圖片為官方活動素材，條件以平台公告為準；優惠規則整理在 <Link href="/review" className="font-semibold text-brand-700 hover:underline">88WIN 評價</Link>。</p>
+            </div>
+            <a href={LINKS.register} rel="noopener" className="text-sm font-semibold text-brand-700 hover:underline">
+              免費註冊領取 →
+            </a>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {PROMOS.map((banner) => (
+              <a key={banner.src} href={LINKS.register} rel="noopener" className="group overflow-hidden rounded-2xl border border-ink-200 bg-brand-50">
+                <Image
+                  src={banner.src}
+                  alt={banner.alt}
+                  width={banner.width}
+                  height={banner.height}
+                  sizes="(min-width: 1160px) 570px, (min-width: 640px) 50vw, 100vw"
+                  className="h-auto w-full transition duration-300 group-hover:scale-[1.02]"
+                />
+              </a>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-12 sm:py-16">
         <Container className="flex flex-col gap-6">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <h2 className="text-2xl sm:text-3xl">最新資訊</h2>

@@ -76,8 +76,10 @@ export interface Article {
   keywords: string[];
   /** Pillar page this article supports; the pillar lists it back. */
   pillar: string;
-  /** Two hex colours for the generated cover. */
+  /** Two hex colours for the generated cover (fallback when there is no image). */
   cover: [string, string];
+  /** Cover artwork under /public, 3:2. Set in lib/data/articles.ts. */
+  image?: string;
   content: ContentBlock[];
   faq?: FAQItem[];
 }
@@ -96,7 +98,17 @@ export interface InfoPage {
   content: ContentBlock[];
   faqHeading?: string;
   faq?: FAQItem[];
+  /** Official platform banners shown above the body, in order. */
+  media?: MediaItem[];
   /** Short line used on the homepage / related-page cards. */
   summary: string;
   icon: IconName;
+}
+
+/** An image placed on an information page (official platform artwork). */
+export interface MediaItem {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
 }
