@@ -27,7 +27,7 @@ export function Footer() {
         <nav aria-label="資訊頁面">
           <h2 className="mb-4 text-sm font-semibold text-white">官方資訊</h2>
           <ul className="flex flex-col gap-2.5 text-sm">
-            {NAV.filter((_, idx) => idx <= 3).map((item) => (
+            {NAV.filter((_, idx) => idx <= 5).map((item) => (
               <li key={item.path}>
                 <Link href={item.path} className="transition hover:text-white">
                   {item.label}
