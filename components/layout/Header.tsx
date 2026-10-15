@@ -48,7 +48,7 @@ export function Header() {
         <nav aria-label="主要導覽" className="hidden xl:block">
           <ul className="flex items-center gap-1">
             {/* 假網站辨識 (index 2) is left out of the desktop bar to save width. */}
-            {NAV.filter((_, idx) => idx <= 5).map((item) => (
+            {NAV.filter((_, idx) => idx <= 7).map((item) => (
               <li key={item.path}>
                 <Link
                   href={item.path}
