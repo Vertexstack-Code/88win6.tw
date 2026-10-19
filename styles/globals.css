@@ -107,3 +107,65 @@
     animation: none;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Visual page body (components/shared/VisualContent.tsx)
+   -------------------------------------------------------------------------- */
+/* Static backdrop: soft brand gradient, two fixed glows and a faint dot grid. */
+.visual-bg {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(420px 260px at 100% 0%, rgba(47, 127, 237, 0.18), transparent 70%),
+    radial-gradient(380px 260px at 0% 100%, rgba(16, 185, 129, 0.16), transparent 70%),
+    linear-gradient(160deg, #eaf2ff 0%, #f6f8fc 45%, #eefbf5 100%);
+  border: 1px solid #dfe6f0;
+}
+
+.visual-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(rgba(13, 26, 56, 0.1) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 85%);
+  mask-image: linear-gradient(180deg, #000, transparent 85%);
+}
+
+/* Inline links inside the cards. */
+.vc-text a {
+  @apply font-semibold text-brand-700 underline decoration-brand-300 underline-offset-4 hover:decoration-brand-600;
+}
+.vc-text strong {
+  @apply font-semibold text-ink-900;
+}
+.vc-text-invert a {
+  @apply underline decoration-white/60 underline-offset-4;
+}
+
+/* Static backdrop for the "其他官方資訊" band (InfoPageView). */
+.related-bg {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(520px 320px at 90% 0%, rgba(47, 127, 237, 0.16), transparent 70%),
+    radial-gradient(480px 320px at 5% 100%, rgba(16, 185, 129, 0.14), transparent 70%),
+    linear-gradient(180deg, #edf3fd 0%, #f6f8fc 100%);
+}
+
+.related-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(13, 26, 56, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 26, 56, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 30%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 30%, #000 30%, transparent 80%);
+}

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatDate } from "@/lib/content";
 import type { Article } from "@/lib/types";
+import { Icon } from "@/components/shared/Icon";
 
 /**
  * Article cover: the official artwork when the article has one, otherwise an
@@ -22,7 +23,14 @@ export function ArticleCover({
   if (article.image) {
     return (
       <div className={`relative aspect-[3/2] w-full overflow-hidden bg-brand-50 ${className}`}>
-        <Image src={article.image} alt="" fill priority={priority} sizes={sizes} className="object-cover" />
+        <Image
+          src={article.image}
+          alt=""
+          fill
+          priority={priority}
+          sizes={sizes}
+          className="object-cover transition duration-500 group-hover:scale-105"
+        />
         <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink-800 shadow-sm">
           {article.category}
         </span>
@@ -58,19 +66,25 @@ export function ArticleCard({ article }: { article: Article }) {
   return (
     <Link
       href={`/news/${article.slug}`}
-      className="card group flex flex-col overflow-hidden transition hover:-translate-y-0.5 hover:border-brand-300"
+      className="card group flex flex-col overflow-hidden transition hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_20px_44px_-26px_rgba(13,26,56,0.55)]"
     >
       <ArticleCover article={article} />
       <div className="flex flex-1 flex-col gap-2 p-5">
         <h3 className="text-[17px] leading-snug group-hover:text-brand-700">{article.title}</h3>
         <p className="line-clamp-2 text-sm leading-6 text-ink-600">{article.description}</p>
-        <p className="mt-auto pt-2 text-xs text-ink-500">
-          <time dateTime={article.updatedDate ?? article.publishDate}>
-            {formatDate(article.updatedDate ?? article.publishDate)}
-          </time>
-          {" · "}
-          {article.readingTime}
-        </p>
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-ink-100 pt-3">
+          <p className="text-xs text-ink-500">
+            <time dateTime={article.updatedDate ?? article.publishDate}>
+              {formatDate(article.updatedDate ?? article.publishDate)}
+            </time>
+            {" · "}
+            {article.readingTime}
+          </p>
+          <span className="inline-flex shrink-0 items-center gap-1 text-xs font-bold text-brand-600">
+            閱讀全文
+            <Icon name="arrowRight" className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+          </span>
+        </div>
       </div>
     </Link>
   );
