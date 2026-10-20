@@ -30,6 +30,12 @@ function toSections(blocks: ContentBlock[]): Section[] {
 // Icon + gradient per section, picked from the heading's wording so the same
 // renderer suits every page; falls back to a rotating set.
 const THEMES: { match: RegExp; icon: IconName; tone: string }[] = [
+  { match: /輸入資料|怎麼辦/, icon: "bolt", tone: "from-rose-400 to-red-600" },
+  { match: /回報|檢舉/, icon: "chat", tone: "from-teal-300 to-cyan-600" },
+  { match: /密碼/, icon: "lock", tone: "from-violet-400 to-indigo-600" },
+  { match: /帳號|註冊/, icon: "user", tone: "from-sky-400 to-brand-600" },
+  { match: /原因|問題/, icon: "help", tone: "from-amber-300 to-orange-500" },
+  { match: /特徵|仿冒|可疑|觀察/, icon: "alertTriangle", tone: "from-rose-400 to-red-600" },
   { match: /清單|使用|步驟|教學/, icon: "check", tone: "from-emerald-400 to-emerald-600" },
   { match: /更換|網址|新/, icon: "globe", tone: "from-sky-400 to-brand-600" },
   { match: /台灣|地區|海外/, icon: "shield", tone: "from-violet-400 to-indigo-600" },
@@ -129,13 +135,35 @@ function Block({ block }: { block: ContentBlock }) {
   }
 }
 
+/**
+ * Plain-text sections pair up two per row; anything else spans the row. A
+ * plain-text section left without a partner (the last of an odd run) spans
+ * too, so the grid never shows a half-empty row.
+ */
+function spanFlags(sections: Section[]): boolean[] {
+  const wide = sections.map((section) => section.blocks.some((block) => block.type !== "paragraph"));
+  const flags = [...wide];
+  let run = 0;
+  sections.forEach((_, index) => {
+    if (wide[index]) {
+      run = 0;
+      return;
+    }
+    run += 1;
+    const runEnds = index === sections.length - 1 || wide[index + 1];
+    if (runEnds && run % 2 === 1) flags[index] = true;
+  });
+  return flags;
+}
+
 export function VisualContent({ blocks }: { blocks: ContentBlock[] }) {
   const sections = toSections(blocks);
+  const spans = spanFlags(sections);
 
   return (
     <div className="grid gap-4 md:grid-cols-2">
       {sections.map((section, index) => {
-        const wide = section.blocks.some((block) => block.type !== "paragraph");
+        const wide = spans[index];
         const theme = themeFor(section.heading, index);
         return (
           <section

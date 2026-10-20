@@ -6,5 +6,5 @@ import { OfficialDomains } from "@/components/shared/OfficialDomains";
 export const metadata = infoPageMetadata("/fake-sites");
 
 export default function Page() {
-  return <InfoPageView page={getPage("/fake-sites")} lead={<OfficialDomains showNonOfficial />} />;
+  return <InfoPageView page={getPage("/fake-sites")} lead={<OfficialDomains showNonOfficial />} animatedHeader visualBody />;
 }
