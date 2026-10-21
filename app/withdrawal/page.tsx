@@ -5,5 +5,5 @@ import { InfoPageView } from "@/components/shared/InfoPageView";
 export const metadata = infoPageMetadata("/withdrawal");
 
 export default function Page() {
-  return <InfoPageView page={getPage("/withdrawal")} />;
+  return <InfoPageView page={getPage("/withdrawal")} animatedHeader visualBody />;
 }

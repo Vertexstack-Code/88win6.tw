@@ -5,5 +5,5 @@ import { InfoPageView } from "@/components/shared/InfoPageView";
 export const metadata = infoPageMetadata("/review");
 
 export default function Page() {
-  return <InfoPageView page={getPage("/review")} />;
+  return <InfoPageView page={getPage("/review")} animatedHeader visualBody />;
 }

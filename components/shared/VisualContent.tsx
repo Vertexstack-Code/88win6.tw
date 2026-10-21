@@ -30,6 +30,13 @@ function toSections(blocks: ContentBlock[]): Section[] {
 // Icon + gradient per section, picked from the heading's wording so the same
 // renderer suits every page; falls back to a rotating set.
 const THEMES: { match: RegExp; icon: IconName; tone: string }[] = [
+  { match: /申訴/, icon: "headset", tone: "from-teal-300 to-cyan-600" },
+  { match: /PTT|Dcard|疑問/, icon: "chat", tone: "from-sky-400 to-brand-600" },
+  { match: /合法|法規/, icon: "shield", tone: "from-violet-400 to-indigo-600" },
+  { match: /優點/, icon: "star", tone: "from-amber-300 to-orange-500" },
+  { match: /限制/, icon: "alertTriangle", tone: "from-amber-400 to-red-500" },
+  { match: /到帳|時間/, icon: "clock", tone: "from-sky-400 to-brand-600" },
+  { match: /條件|一覽/, icon: "chart", tone: "from-emerald-400 to-emerald-600" },
   { match: /輸入資料|怎麼辦/, icon: "bolt", tone: "from-rose-400 to-red-600" },
   { match: /回報|檢舉/, icon: "chat", tone: "from-teal-300 to-cyan-600" },
   { match: /密碼/, icon: "lock", tone: "from-violet-400 to-indigo-600" },
@@ -53,13 +60,17 @@ function themeFor(heading: string | undefined, index: number) {
   return THEMES.find((theme) => heading && theme.match.test(heading)) ?? FALLBACK[index % FALLBACK.length];
 }
 
+// Sections whose list items are drawbacks or risks rather than benefits.
+const CAUTION = /限制|注意|風險|缺點/;
+
 const CALLOUT = {
   info: { box: "from-brand-500 to-brand-700", icon: "bulb" as IconName },
   ok: { box: "from-emerald-500 to-emerald-700", icon: "check" as IconName },
   warn: { box: "from-amber-500 to-orange-600", icon: "alertTriangle" as IconName },
 };
 
-function Block({ block }: { block: ContentBlock }) {
+/** List bullets: a green tick normally, an amber warning in "limits / risks" sections. */
+function Block({ block, caution = false }: { block: ContentBlock; caution?: boolean }) {
   switch (block.type) {
     case "steps":
       return (
@@ -82,7 +93,10 @@ function Block({ block }: { block: ContentBlock }) {
         <ul className="flex flex-col gap-2">
           {block.items.map((item) => (
             <li key={item} className="vc-text flex items-start gap-2.5 text-[15px] leading-7 text-ink-700">
-              <Icon name="check" className="mt-1.5 h-4 w-4 shrink-0 text-emerald-600" />
+              <Icon
+                name={caution ? "alertTriangle" : "check"}
+                className={`mt-1.5 h-4 w-4 shrink-0 ${caution ? "text-amber-500" : "text-emerald-600"}`}
+              />
               <span>{inline(item)}</span>
             </li>
           ))}
@@ -186,7 +200,7 @@ export function VisualContent({ blocks }: { blocks: ContentBlock[] }) {
             )}
             <div className="relative flex flex-col gap-4">
               {section.blocks.map((block, blockIndex) => (
-                <Block key={blockIndex} block={block} />
+                <Block key={blockIndex} block={block} caution={CAUTION.test(section.heading ?? "")} />
               ))}
             </div>
           </section>
