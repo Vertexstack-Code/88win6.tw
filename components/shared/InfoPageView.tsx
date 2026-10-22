@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { formatDate, getAllPages, getArticlesByPillar } from "@/lib/content";
 import { faqSchema } from "@/lib/structured-data";
 import { SITE } from "@/lib/site";
+import { PAGE_TONES } from "@/lib/tones";
 import type { InfoPage } from "@/lib/types";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ArticleCard } from "@/components/shared/ArticleCard";
@@ -15,18 +16,6 @@ import { MediaBanners } from "@/components/shared/Media";
 import { PageSidebar } from "@/components/shared/PageSidebar";
 import { VisualContent } from "@/components/shared/VisualContent";
 
-/** Icon-tile gradient per page, matching the homepage topic cards. */
-const PAGE_TONES: Record<string, string> = {
-  "/official-links": "from-emerald-400 to-emerald-600",
-  "/login": "from-sky-400 to-brand-600",
-  "/fake-sites": "from-rose-400 to-red-600",
-  "/review": "from-amber-300 to-orange-500",
-  "/withdrawal": "from-emerald-400 to-teal-600",
-  "/app": "from-violet-400 to-indigo-600",
-  "/support": "from-teal-300 to-cyan-600",
-  "/faq": "from-blue-400 to-indigo-600",
-  "/responsible-gaming": "from-slate-400 to-slate-600",
-};
 
 /**
  * Layout shared by every information page: a page header with the H1 and

@@ -30,6 +30,11 @@ function toSections(blocks: ContentBlock[]): Section[] {
 // Icon + gradient per section, picked from the heading's wording so the same
 // renderer suits every page; falls back to a rotating set.
 const THEMES: { match: RegExp; icon: IconName; tone: string }[] = [
+  { match: /APK|冒充/, icon: "alertTriangle", tone: "from-rose-400 to-red-600" },
+  { match: /iPhone|Safari/, icon: "download", tone: "from-violet-400 to-indigo-600" },
+  { match: /Android|Chrome/, icon: "download", tone: "from-emerald-400 to-emerald-600" },
+  { match: /手機版|電腦版/, icon: "globe", tone: "from-sky-400 to-brand-600" },
+  { match: /準備/, icon: "check", tone: "from-amber-300 to-orange-500" },
   { match: /申訴/, icon: "headset", tone: "from-teal-300 to-cyan-600" },
   { match: /PTT|Dcard|疑問/, icon: "chat", tone: "from-sky-400 to-brand-600" },
   { match: /合法|法規/, icon: "shield", tone: "from-violet-400 to-indigo-600" },

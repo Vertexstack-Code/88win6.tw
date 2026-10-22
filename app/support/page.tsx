@@ -6,5 +6,5 @@ import { LineQrCard } from "@/components/shared/Media";
 export const metadata = infoPageMetadata("/support");
 
 export default function Page() {
-  return <InfoPageView page={getPage("/support")} lead={<LineQrCard size="lg" />} />;
+  return <InfoPageView page={getPage("/support")} lead={<LineQrCard size="lg" />} animatedHeader visualBody />;
 }

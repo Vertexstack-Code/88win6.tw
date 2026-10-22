@@ -6,5 +6,5 @@ import { InfoPageView } from "@/components/shared/InfoPageView";
 export const metadata = infoPageMetadata("/app");
 
 export default function Page() {
-  return <InfoPageView page={getPage("/app")} lead={<AppLead />} />;
+  return <InfoPageView page={getPage("/app")} lead={<AppLead />} animatedHeader visualBody />;
 }
